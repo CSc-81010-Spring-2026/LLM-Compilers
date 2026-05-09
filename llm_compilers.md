@@ -203,7 +203,7 @@ The paper's recommendation: use the LLM as a *proposer*, then validate with a re
 
 ## Pattern: "LLM Proposes, Compiler Disposes"
 
-The dominant safe pattern across LLM-for-compiler papers:
+Stepping back from Meta LLM Compiler [@llmc]: what it does is one instance of the dominant safe pattern across LLM-for-compiler papers more generally:
 
 ```mermaid
 graph LR
@@ -252,6 +252,8 @@ Effect:
 # Decompilation
 
 ## Why Decompile?
+
+So far Part 2 has covered **forward** uses of LLMs in compilers --- generating, transforming, and tuning code. Decompilation is a *backward* use: recovering source from a binary you've already compiled.
 
 - Reverse engineering.
 - Security: malware analysis, vulnerability finding.
