@@ -376,7 +376,7 @@ So *of course* people are trying LLMs.
 
 ## Connecting Back to Our Research
 
-Our work on safe refactoring of imperative DL programs uses the same propose-then-verify pattern---but the *proposer* is an analysis, not an LLM [@kh23; @kh25].
+Our work on safe refactoring of imperative DL programs occupies the *verifier* half of the pattern: static analysis checks refactoring preconditions and rejects unsafe transformations [@kh23; @kh25]. The "proposer" today is a set of simple heuristics (decorator placement, function naming, library imports), not an LLM---which is why the next slide invites you to think about replacing the heuristic proposer with one.
 
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
