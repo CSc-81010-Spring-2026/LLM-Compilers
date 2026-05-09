@@ -51,9 +51,14 @@ LLMs and compilers can interact in two opposite directions.
 
 ### LLM Inside the Compiler
 
+**Optimization:**
+
 - Phase / pass ordering.
 - Autotuning.
 - IR-to-IR rewriting.
+
+**Reverse engineering and testing:**
+
 - Decompilation.
 - Front-end fuzzing.
 
