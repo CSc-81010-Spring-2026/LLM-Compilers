@@ -368,7 +368,7 @@ Refactoring is a *behavior-preserving program transformation* --- exactly the sa
 
 So *of course* people are trying LLMs.
 
-- StarCoder2 reduced code smells **20.1%** more than human developers in a controlled study [@llmref1].
+- StarCoder2 (an open-source code LLM from BigCode) reduced code smells **20.1%** more than human developers in a controlled study [@llmref1].
 - ChatGPT identified **15.6%** of refactoring opportunities zero-shot, but **86.7%** with task-specific prompting [@llmref2].
 - A 2025 systematic review covers >100 papers in this area [@llmref3].
 
