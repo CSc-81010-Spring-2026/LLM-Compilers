@@ -304,9 +304,11 @@ Csmith [@csmith] famously found *hundreds* of bugs in mainline GCC and Clang by 
 
 LLM-based fuzzers extend this:
 
-- Prompt an LLM to generate "weird but legal" C / Python / TF programs.
-- Run on multiple compilers / framework versions.
+- Prompt an LLM to generate "weird but legal" C/Python/TF programs.
+- Run on multiple compilers/framework versions.
 - Diff outputs.
+
+The same "weird-but-legal" + differential-test methodology is used to find correctness bugs in **refactoring engines** [@daniel2007] --- the same engines our research builds on. Refactoring is just compilation at the source level; the testing techniques transfer.
 
 > LLMs are *especially good* at generating syntactically tricky-but-valid programs.
 
