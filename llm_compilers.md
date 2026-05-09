@@ -381,14 +381,14 @@ Our work on safe refactoring of imperative DL programs occupies the *verifier* h
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
 
-### What Gets Verified
+### What the Preconditions Check
 
 - No graph-incompatible side effects.
 - Tensor flow matches expected shape/dtype/device.
 - Control flow is graph-tractable.
 - Decorator placement is consistent.
 
-If preconditions hold, the analysis accepts the refactoring under its modeling assumptions. The speculative variant additionally surfaces any unprovable assumptions for the developer to review before applying.
+Preconditions filter candidates; we then *empirically* validate the surviving refactorings against runtime benchmarks and model accuracy. We do not formally prove semantic equivalence.
 
 :::
 ::: {.column width="50%"}
@@ -403,7 +403,7 @@ If preconditions hold, the analysis accepts the refactoring under its modeling a
 :::
 ::::::::::::::
 
-> An LLM-as-refactoring-engine *without* a verifier might propose this same change---but offer no guarantee that your model still computes the same answer.
+> An LLM proposing this same rewrite directly---no precondition check, no empirical evaluation pipeline---offers no signal that your model still works.
 
 ## A Research Opportunity (Open Invitation)
 
