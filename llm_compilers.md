@@ -109,7 +109,7 @@ We will look at four of these in depth.
 
 ## (1) Source-Level Rewriting
 
-LLMs as a *very* aggressive peephole optimizer at the source level.
+LLMs as a *very* aggressive peephole optimizer at the source level. *(In SE terms: this is **refactoring** --- behavior-preserving source-to-source transformation. Same activity, different community vocabulary. We come back to this later.)*
 
 - Suggest vectorizable rewrites.
 - Suggest parallel patterns (OpenMP pragmas, GPU kernels).
@@ -493,7 +493,7 @@ The Dragon Book does not cover this material. Use these instead.
 
 For anyone who wants to keep going after the final quiz:
 
-- Pick **one paper** from the References slides --- Part 1 or Part 2.
+- Pick **one paper** from the References slides --- Part 1 or Part 2 *(or email me first to propose a paper outside the References)*.
 - Read it.
 - Write a **one-page response**: what does it claim, what did you find compelling or unconvincing, where does it connect to the rest of this course?
 - Email it to me by the last day of finals week.
