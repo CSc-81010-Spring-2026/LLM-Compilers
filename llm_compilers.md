@@ -205,9 +205,13 @@ The paper's recommendation: use the LLM as a *proposer*, then validate with a re
 
 The dominant safe pattern across LLM-for-compiler papers:
 
-```
-source / IR  ──▶  LLM (fast prior)  ──▶  candidate transform  ──▶  Validator  ──▶  accept | reject
-                                                                  (sound check)
+```mermaid
+graph LR
+  src["source / IR"] --> llm["LLM\n(fast, unsound)"]
+  llm --> cand["candidate\ntransform"]
+  cand --> val{"Validator\n(sound check)"}
+  val --> accept(["accept"])
+  val --> reject(["reject"])
 ```
 
 Roles:
