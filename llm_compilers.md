@@ -388,7 +388,7 @@ Our work on safe refactoring of imperative DL programs occupies the *verifier* h
 - Control flow is graph-tractable.
 - Decorator placement is consistent.
 
-If all preconditions hold, the refactoring is *guaranteed* safe.
+If preconditions hold, the analysis accepts the refactoring under its modeling assumptions. The speculative variant additionally surfaces any unprovable assumptions for the developer to review before applying.
 
 :::
 ::: {.column width="50%"}
