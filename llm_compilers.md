@@ -3,7 +3,7 @@ title: LLMs in Compiler Construction
 author: Raffi Khatchadourian
 date: May 12, 2026
 semester: Spring 2026
-footer: CSc 81010 --- Compiler Construction --- CUNY Graduate Center
+footer: CSc 81010---Compiler Construction---CUNY Graduate Center
 license: Creative Commons Attribution 4.0 International (CC BY 4.0)
 ---
 
@@ -11,7 +11,7 @@ license: Creative Commons Attribution 4.0 International (CC BY 4.0)
 
 ## Recap and Plan
 
-In Part 1 we saw **DL compilers** --- compilers built *for* deep learning workloads.
+In Part 1 we saw **DL compilers**---compilers built *for* deep learning workloads.
 
 In Part 2 we flip the question:
 
@@ -20,7 +20,7 @@ In Part 2 we flip the question:
 Two themes today:
 
 1. Where LLMs already plug into the classical compiler pipeline.
-1. What can break --- and what we, as compiler people, should do about it.
+1. What can break---and what we, as compiler people, should do about it.
 
 ## A One-Slide LLM Refresher
 
@@ -65,7 +65,7 @@ LLMs and compilers can interact in two opposite directions.
 :::
 ::::::::::::::
 
-Today we focus on the right-hand side --- LLMs *as compiler components*.
+Today we focus on the right-hand side---LLMs *as compiler components*.
 
 ## Why Even Try?
 
@@ -109,7 +109,7 @@ We will look at four of these in depth.
 
 ## (1) Source-Level Rewriting
 
-LLMs as a *very* aggressive peephole optimizer at the source level. *(In SE terms: this is **refactoring** --- behavior-preserving source-to-source transformation. Same activity, different community vocabulary. We come back to this later.)*
+LLMs as a *very* aggressive peephole optimizer at the source level. *(In SE terms: this is **refactoring**---behavior-preserving source-to-source transformation. Same activity, different community vocabulary. We come back to this later.)*
 
 - Suggest vectorizable rewrites.
 - Suggest parallel patterns (OpenMP pragmas, GPU kernels).
@@ -150,7 +150,7 @@ Train an LLM to map LLVM IR $\to$ optimized LLVM IR.
 
 This is the headline result of **Meta's LLM Compiler**, our deep dive.
 
-## Deep Dive: Meta's LLM Compiler --- What It Is
+## Deep Dive: Meta's LLM Compiler---What It Is
 
 We've previewed the categories. Now a concrete instance.
 
@@ -181,7 +181,7 @@ Two main fine-tuned variants:
 
 Reported results on the paper's benchmarks:
 
-- **77%** of the optimization potential of an autotuner search --- *without doing the search*.
+- **77%** of the optimization potential of an autotuner search---*without doing the search*.
 - **45%** disassembly round-trip success.
 - **14%** exact-match disassembly.
 
@@ -249,7 +249,7 @@ Effect:
 
 ## Why Decompile?
 
-So far Part 2 has covered **forward** uses of LLMs in compilers --- generating, transforming, and tuning code. Decompilation is a *backward* use: recovering source from a binary you've already compiled.
+So far Part 2 has covered **forward** uses of LLMs in compilers---generating, transforming, and tuning code. Decompilation is a *backward* use: recovering source from a binary you've already compiled.
 
 - Reverse engineering.
 - Security: malware analysis, vulnerability finding.
@@ -308,7 +308,7 @@ LLM-based fuzzers extend this:
 - Run on multiple compilers/framework versions.
 - Diff outputs.
 
-The "weird-but-legal" + differential-test methodology *predates* LLMs by years: Daniel et al. used it (with random program generation, not LLMs) to find correctness bugs in **refactoring engines** in 2007 [@daniel2007] --- the same engines our research builds on. LLMs are the modern program-generator slot in an older testing pattern. Applying LLMs to *refactoring-engine* testing specifically is a natural open direction.
+The "weird-but-legal" + differential-test methodology *predates* LLMs by years: Daniel et al. used it (with random program generation, not LLMs) to find correctness bugs in **refactoring engines** in 2007 [@daniel2007]---the same engines our research builds on. LLMs are the modern program-generator slot in an older testing pattern. Applying LLMs to *refactoring-engine* testing specifically is a natural open direction.
 
 > LLMs are *especially good* at generating syntactically tricky-but-valid programs.
 
@@ -317,9 +317,9 @@ The "weird-but-legal" + differential-test methodology *predates* LLMs by years: 
 Tying back to Part 1: DL compilers are young and brittle. Four well-documented categories:
 
 - **Silent miscompilation**: graph mode and eager mode disagree on the output. Caused by `torch.compile` graph breaks discarding side effects, or `tf.function` retracing under inputs the original trace didn't see.
-- **Numerical drift**: aggressive operator fusion reorders floating-point operations, returning different values --- especially visible at `fp16` / `bf16`.
+- **Numerical drift**: aggressive operator fusion reorders floating-point operations, returning different values---especially visible at `fp16` / `bf16`.
 - **Crashes**: the tracer fails on specific Python constructs, dynamic shapes, or unsupported control flow.
-- **Retrace thrashing**: shape or dtype variations trigger expensive recompilation, sometimes invisibly --- a *performance* bug that masquerades as "the model is slow."
+- **Retrace thrashing**: shape or dtype variations trigger expensive recompilation, sometimes invisibly---a *performance* bug that masquerades as "the model is slow."
 
 LLM-based fuzzing has recently surfaced hundreds of such bugs in DL frameworks [@dlfuzz].
 
@@ -364,7 +364,7 @@ Everything you have learned this semester is *exactly* what you need to verify L
 
 ## Aside: LLMs and Refactoring
 
-Refactoring is a *behavior-preserving program transformation* --- exactly the same correctness story as a compiler optimization, just at the source level.
+Refactoring is a *behavior-preserving program transformation*---exactly the same correctness story as a compiler optimization, just at the source level.
 
 So *of course* people are trying LLMs.
 
@@ -376,7 +376,7 @@ So *of course* people are trying LLMs.
 
 ## Connecting Back to Our Research
 
-Our work on safe refactoring of imperative DL programs uses the same propose-then-verify pattern --- but the *proposer* is an analysis, not an LLM [@kh23; @kh25].
+Our work on safe refactoring of imperative DL programs uses the same propose-then-verify pattern---but the *proposer* is an analysis, not an LLM [@kh23; @kh25].
 
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
@@ -403,7 +403,7 @@ If all preconditions hold, the refactoring is *guaranteed* safe.
 :::
 ::::::::::::::
 
-> An LLM-as-refactoring-engine *without* a verifier might propose this same change --- but offer no guarantee that your model still computes the same answer.
+> An LLM-as-refactoring-engine *without* a verifier might propose this same change---but offer no guarantee that your model still computes the same answer.
 
 ## A Research Opportunity (Open Invitation)
 
@@ -456,14 +456,14 @@ For each of the following compiler tasks, is an LLM "compiler-grade" trustworthy
 1. **Intermediate code generation**.
 1. **Control-flow & data-flow analysis**.
 1. **Optimization**.
-1. **Today**: where this toolkit meets the modern frontier --- DL compilers and LLM-augmented compilation.
+1. **Today**: where this toolkit meets the modern frontier---DL compilers and LLM-augmented compilation.
 
 ## Final Take-Home Points
 
-1. LLMs are now part of the compiler-construction toolbox --- as proposers, not as oracles.
+1. LLMs are now part of the compiler-construction toolbox---as proposers, not as oracles.
 1. Meta's **LLM Compiler** shows you can pretrain a foundation model directly on IR.
 1. **Decompilation** is the most natural fit; correctness must still be checked.
-1. The hard problem is the **verification gap** --- and it is *exactly* the kind of problem this course prepared you for.
+1. The hard problem is the **verification gap**---and it is *exactly* the kind of problem this course prepared you for.
 1. The frontier of compilers is being defined right now. **You are equipped to contribute.**
 
 ## Suggested Reading
@@ -472,8 +472,8 @@ The Dragon Book does not cover this material. Use these instead.
 
 ### Required (Pick One)
 
-- Cummins et al. *Meta Large Language Model Compiler.* 2024. [arxiv.org/abs/2407.02524](https://arxiv.org/abs/2407.02524) --- the headline foundation-model-for-compilers paper.
-- Gao et al. *Language Models for Code Optimization: Survey, Challenges and Future Directions.* 2025. [arxiv.org/abs/2501.01277](https://arxiv.org/abs/2501.01277) --- the standard survey.
+- Cummins et al. *Meta Large Language Model Compiler.* 2024. [arxiv.org/abs/2407.02524](https://arxiv.org/abs/2407.02524)---the headline foundation-model-for-compilers paper.
+- Gao et al. *Language Models for Code Optimization: Survey, Challenges and Future Directions.* 2025. [arxiv.org/abs/2501.01277](https://arxiv.org/abs/2501.01277)---the standard survey.
 
 ### Strongly Recommended
 
@@ -496,7 +496,7 @@ The Dragon Book does not cover this material. Use these instead.
 
 For anyone who wants to keep going after the final quiz:
 
-- Pick **one paper** from the References slides --- Part 1 or Part 2 *(or email me first to propose a paper outside the References)*.
+- Pick **one paper** from the References slides---Part 1 or Part 2 *(or email me first to propose a paper outside the References)*.
 - Read it.
 - Write a **one-page response**: what does it claim, what did you find compelling or unconvincing, where does it connect to the rest of this course?
 - Email it to me by the last day of finals week.
@@ -505,6 +505,6 @@ For anyone who wants to keep going after the final quiz:
 
 ## Thank You
 
-> Compilers are not a solved problem. They are *the* problem at the boundary of every new computational platform --- deep learning yesterday, neural-symbolic systems tomorrow.
+> Compilers are not a solved problem. They are *the* problem at the boundary of every new computational platform---deep learning yesterday, neural-symbolic systems tomorrow.
 
 Have a great summer.
