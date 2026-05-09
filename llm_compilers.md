@@ -150,9 +150,9 @@ Train an LLM to map LLVM IR $\to$ optimized LLVM IR.
 
 This is the headline result of **Meta's LLM Compiler**, our deep dive.
 
-# Deep Dive: Meta's LLM Compiler
+## Deep Dive: Meta's LLM Compiler --- What It Is
 
-## What It Is
+We've previewed the categories. Now a concrete instance.
 
 Meta released **LLM Compiler** in mid-2024 [@llmc]:
 
@@ -221,8 +221,6 @@ Roles:
 
 > Q: Where have we seen "propose-then-verify" in classical compiler work?
 
-# (4) Autotuning with LLMs
-
 ## Recall From Part 1
 
 For a single GPU kernel, the schedule space had thousands of valid implementations.
@@ -248,8 +246,6 @@ Effect:
 - Same correctness story: validate every proposal.
 
 > Same propose-then-verify pattern as IR rewriting.
-
-# Decompilation
 
 ## Why Decompile?
 
@@ -300,9 +296,9 @@ Mitigations:
 - Run the original and the recovered binary on the same inputs.
 - Use the LLM only as a *renaming / commenting* layer over a classical decompiler.
 
-# Compiler Bug Finding
-
 ## Compilers Have Bugs
+
+Beyond optimization and decompilation, LLMs help with a third compiler-adjacent task: *finding bugs in compilers themselves*.
 
 Csmith [@csmith] famously found *hundreds* of bugs in mainline GCC and Clang by random differential testing.
 
@@ -323,8 +319,6 @@ Tying back to Part 1: DL compilers are young and brittle.
 - LLM-based testing has found hundreds of such bugs in DL frameworks recently [@dlfuzz].
 
 > Q: How does this connect to *concept drift* and *technical debt* in ML systems?
-
-# Limits and Risks
 
 ## What LLMs Cannot Do (Yet)
 
@@ -448,8 +442,6 @@ For each of the following compiler tasks, is an LLM "compiler-grade" trustworthy
 - LLMs solve the **search problem**.
 - Compiler theory solves the **soundness problem**.
 - Together, they cover what neither can alone.
-
-# Wrapping Up the Course
 
 ## What You Learned This Semester
 
