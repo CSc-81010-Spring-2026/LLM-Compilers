@@ -409,9 +409,9 @@ Preconditions filter candidates; we then *empirically* validate the surviving re
 
 The unsolved problem in this space:
 
-> Can an LLM **propose** more refactorings than a static analysis can, with a static analysis serving as the **verifier**?
+> Can an LLM **propose** more refactoring candidates than today's heuristics, with **static-analysis preconditions** filtering out unsafe ones and the empirical-evaluation pipeline (benchmarks, accuracy) catching what the analysis misses?
 
-This is a natural PhD / Master's project that would combine:
+This is a natural PhD/Master's project that would combine:
 
 - The static-analysis material from this course.
 - The LLM-augmentation patterns we just covered.
