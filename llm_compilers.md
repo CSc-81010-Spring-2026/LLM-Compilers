@@ -458,7 +458,7 @@ For each of the following compiler tasks, is an LLM "compiler-grade" trustworthy
 1. **Intermediate code**: ASTs, DAGs, three-address code.
 1. **Control-flow analysis**: CFGs, dominators, loops, control dependences.
 1. **Data-flow analysis**: reaching definitions, lattices, fixed-point.
-1. **Compiler optimizations**: local and global; loop-invariant code motion.
+1. **Compiler optimizations**: local, global, and loop transformations (fusion, peeling, unrolling, code motion); copy propagation.
 1. **Today**: where this toolkit meets the modern frontier---DL compilers and LLM-augmented compilation.
 
 ## Final Take-Home Points
