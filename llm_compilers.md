@@ -130,7 +130,7 @@ double sum = std::inner_product(a, a+n, b, 0.0);
 A classic NP-hard search:
 
 - LLVM has **over 100** optimization passes (the count varies by version; phase-ordering papers typically work over a curated subset of ~50--130).
-- Their order matters; `-O3` is one fixed point in a huge space.
+- Their order matters; `-O3` (the standard "all optimizations on" preset) is one fixed point in a huge space.
 - Best order can vary per program.
 
 LLMs predict (or generate) good pass sequences:
@@ -472,8 +472,8 @@ The Dragon Book does not cover this material. Use these instead.
 
 ### Required (Pick One)
 
-- Cummins et al. *Meta Large Language Model Compiler.* 2024. [arxiv.org/abs/2407.02524](https://arxiv.org/abs/2407.02524)---the headline foundation-model-for-compilers paper.
-- Gao et al. *Language Models for Code Optimization: Survey, Challenges and Future Directions.* 2025. [arxiv.org/abs/2501.01277](https://arxiv.org/abs/2501.01277)---the standard survey.
+- Cummins et al. *Meta Large Language Model Compiler.* 2024. [arxiv.org/abs/2407.02524](https://arxiv.org/abs/2407.02524)---a foundation model trained on 546B tokens of LLVM IR + assembly.
+- Gao et al. *Language Models for Code Optimization: Survey, Challenges and Future Directions.* 2025. [arxiv.org/abs/2501.01277](https://arxiv.org/abs/2501.01277)---a recent survey of where LLMs sit in the compiler pipeline.
 
 ### Strongly Recommended
 
@@ -492,16 +492,16 @@ The Dragon Book does not cover this material. Use these instead.
 ::: {#refs}
 :::
 
-## Optional Take-Home (After the Final)
+## Optional Take-Home (After Quiz 2)
 
-For anyone who wants to keep going after the final quiz:
+For anyone who wants to keep going after Quiz 2:
 
 - Pick **one paper** from the References slides---Part 1 or Part 2 *(or email me first to propose a paper outside the References)*.
 - Read it.
 - Write a **one-page response**: what does it claim, what did you find compelling or unconvincing, where does it connect to the rest of this course?
-- Email it to me by the last day of finals week.
+- Email it to me by the last day of the semester.
 
-> **Voluntary.** No grade impact either way. Quiz prep first; this is for *after*.
+> **Voluntary.** No grade impact either way. Quiz 2 prep first; this is for *after*.
 
 ## Thank You
 
