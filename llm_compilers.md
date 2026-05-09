@@ -35,22 +35,30 @@ For students who haven't seen Foundation Models yet:
 
 ## Two Directions: A Map
 
-```
-                    +-------------------+
-                    |   The Compiler    |
-                    +-------------------+
-                       ^             |
-   uses compiler       |             |  uses LLM
-                       |             v
-   +----------------------+   +----------------------+
-   |  LLM as user/source  |   | LLM inside compiler  |
-   |  - Codex/Copilot     |   | - phase ordering     |
-   |  - generated code    |   | - autotuning         |
-   |    must compile      |   | - decompilation      |
-   |                      |   | - fuzzing the front- |
-   |                      |   |   end                |
-   +----------------------+   +----------------------+
-```
+LLMs and compilers can interact in two opposite directions.
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
+### LLM as User of the Compiler
+
+- Codex, Copilot, ChatGPT writing source code.
+- The output must *parse, type-check, and run*.
+- The compiler is the oracle.
+
+:::
+::: {.column width="50%"}
+
+### LLM Inside the Compiler
+
+- Phase / pass ordering.
+- Autotuning.
+- IR-to-IR rewriting.
+- Decompilation.
+- Front-end fuzzing.
+
+:::
+::::::::::::::
 
 Today we focus on the right-hand side --- LLMs *as compiler components*.
 
@@ -76,18 +84,14 @@ Machine learning in compilers is *not* new.
 
 - 2000s: ML-based inlining and unrolling heuristics.
 - **MILEPOST GCC** (2008): replace hand-tuned heuristics with learned ones.
-- **CompilerGym** (Facebook, 2021): RL environment for compiler optimization. [^cgym]
+- **CompilerGym** (Facebook, 2021): RL environment for compiler optimization [@cgym].
 - **AutoTVM / Ansor**: ML-driven autotuning of DL kernels.
-
-[^cgym]: Cummins et al. *CompilerGym: Robust, Performant Compiler Optimization Environments for AI Research.* CGO 2022.
 
 > LLMs are the next chapter, not the first one.
 
-## Where LLMs Plug In: A Survey [^survey]
+## Where LLMs Plug In: A Survey
 
-[^survey]: Gao et al. *Language Models for Code Optimization: Survey, Challenges and Future Directions.* 2025. [arxiv.org/abs/2501.01277](https://arxiv.org/abs/2501.01277)
-
-Six places along the pipeline where LLMs are being applied:
+Six places along the pipeline where LLMs are being applied [@survey]:
 
 1. **Source-level rewriting** (idiomatic, vectorizable, parallelizable).
 1. **Pass / phase ordering** (which optimizations, in what order).
@@ -145,14 +149,12 @@ This is the headline result of **Meta's LLM Compiler**, our deep dive.
 
 ## What It Is
 
-Meta released **LLM Compiler** in mid-2024 [^llmc]:
+Meta released **LLM Compiler** in mid-2024 [@llmc]:
 
 - Built on top of Code Llama.
 - 7B and 13B parameter sizes, openly available on Hugging Face.
 - Specifically pretrained on **546 billion tokens** of LLVM IR + assembly.
 - Then instruction-tuned for compiler tasks.
-
-[^llmc]: Cummins et al. *Meta Large Language Model Compiler: Foundation Models of Compiler Optimization.* 2024. [arxiv.org/abs/2407.02524](https://arxiv.org/abs/2407.02524)
 
 ## What It Does
 
@@ -196,22 +198,17 @@ The paper's recommendation: use the LLM as a *proposer*, then validate with a re
 
 ## Pattern: "LLM Proposes, Compiler Disposes"
 
+The dominant safe pattern across LLM-for-compiler papers:
+
 ```
-   source / IR
-       |
-       v
-   +---------+
-   | LLM     | --proposed transform-->  +-------------+
-   | (fast)  |                           |  Validator   |
-   +---------+                           |  (compiler   |
-                                         |  equivalence) |
-                                         +-------------+
-                                                |
-                                                v
-                                        accept or reject
+source / IR  ──▶  LLM (fast prior)  ──▶  candidate transform  ──▶  Validator  ──▶  accept | reject
+                                                                  (sound check)
 ```
 
-This is the dominant safe pattern across LLM-for-compiler papers.
+Roles:
+
+- **LLM**: a *fast, unsound* proposer. Generates plausible candidates from a huge corpus prior.
+- **Validator**: a *slow, sound* gate. A real compiler, equivalence checker, or static analysis.
 
 > Q: Where have we seen "propose-then-verify" in classical compiler work?
 
@@ -256,9 +253,7 @@ Traditional decompilers (Ghidra, IDA, Hex-Rays) use static analysis + heuristics
 
 ## LLM4Decompile
 
-LLM4Decompile [^llm4d] is the leading open-source LLM decompiler.
-
-[^llm4d]: Tan et al. *LLM4Decompile: Decompiling Binary Code with Large Language Models.* EMNLP 2024. [arxiv.org/abs/2403.05286](https://arxiv.org/abs/2403.05286)
+LLM4Decompile [@llm4d] is the leading open-source LLM decompiler.
 
 - Models from 1.3B to 33B parameters.
 - Trained on `(assembly, source)` pairs.
@@ -272,13 +267,9 @@ LLM4Decompile [^llm4d] is the leading open-source LLM decompiler.
 
 ## SLaDe and Friends
 
-- **SLaDe** [^slade]: small transformer decompiler with strong results.
-- **DecLLM** [^decllm]: focuses on producing *recompilable* output.
-- **Idioms** [^idioms]: jointly predicts code and *type definitions* (a classic decompiler weakness).
-
-[^slade]: Armengol-Estapé et al. *SLaDe: A Portable Small Language Model Decompiler.* 2023.
-[^decllm]: Liu et al. *DecLLM: LLM-Augmented Recompilable Decompilation.* 2024.
-[^idioms]: *Idioms: Neural Decompilation With Joint Code and Type Definition Prediction.* 2025.
+- **SLaDe** [@slade]: small transformer decompiler with strong results.
+- **DecLLM** [@decllm]: focuses on producing *recompilable* output.
+- **Idioms** [@idioms]: jointly predicts code and *type definitions* (a classic decompiler weakness).
 
 > Decompilation is one place where LLMs are obviously the right tool: the task is fundamentally *fuzzy*.
 
@@ -302,9 +293,7 @@ Mitigations:
 
 ## Compilers Have Bugs
 
-Csmith [^csmith] famously found *hundreds* of bugs in mainline GCC and Clang by random differential testing.
-
-[^csmith]: Yang et al. *Finding and Understanding Bugs in C Compilers.* PLDI 2011.
+Csmith [@csmith] famously found *hundreds* of bugs in mainline GCC and Clang by random differential testing.
 
 LLM-based fuzzers extend this:
 
@@ -320,9 +309,7 @@ Tying back to Part 1: DL compilers are young and brittle.
 
 - Many bugs in `tf.function`, `torch.compile`, JAX `jit`.
 - Symptoms: silent wrong answers, recompiles, crashes, NaNs.
-- LLM-based testing has found hundreds of such bugs in DL frameworks recently. [^dlfuzz]
-
-[^dlfuzz]: Deng et al. *Large Language Models are Edge-Case Generators: Crafting Unusual Programs for Fuzzing Deep Learning Libraries.* ICSE 2024.
+- LLM-based testing has found hundreds of such bugs in DL frameworks recently [@dlfuzz].
 
 > Q: How does this connect to *concept drift* and *technical debt* in ML systems?
 
@@ -371,22 +358,15 @@ Refactoring is a *behavior-preserving program transformation* --- exactly the sa
 
 So *of course* people are trying LLMs.
 
-- StarCoder2 reduced code smells **20.1%** more than human developers in a controlled study. [^llmref1]
-- ChatGPT identified **15.6%** of refactoring opportunities zero-shot, but **86.7%** with task-specific prompting. [^llmref2]
-- A 2025 systematic review covers >100 papers in this area. [^llmref3]
+- StarCoder2 reduced code smells **20.1%** more than human developers in a controlled study [@llmref1].
+- ChatGPT identified **15.6%** of refactoring opportunities zero-shot, but **86.7%** with task-specific prompting [@llmref2].
+- A 2025 systematic review covers >100 papers in this area [@llmref3].
 
 > Q: Recall the slide on LLM hallucination in decompilation. What's the analog for LLM refactoring?
 
-[^llmref1]: Liu et al. *Empirical Study on the Code Refactoring Capability of LLMs.* 2024. [arxiv.org/abs/2411.02320](https://arxiv.org/abs/2411.02320)
-[^llmref2]: Pomian et al. *Empirical Study on the Potential of LLMs in Automated Software Refactoring.* 2024. [arxiv.org/abs/2411.04444](https://arxiv.org/abs/2411.04444)
-[^llmref3]: *Software Refactoring Research with LLMs: A Systematic Literature Review.* JSS 2025.
+## Connecting Back to Our Research
 
-## Connecting Back to My Research
-
-My work on safe refactoring of imperative DL programs uses the same propose-then-verify pattern --- but the *proposer* is an analysis, not an LLM. [^kh23] [^kh25]
-
-[^kh23]: Khatchadourian et al. *Towards Safe Automated Refactoring of Imperative DL Programs to Graph Execution.* ASE 2023.
-[^kh25]: Khatchadourian et al. *Speculative Automated Refactoring of Imperative DL Programs to Graph Execution.* 2025.
+Our work on safe refactoring of imperative DL programs uses the same propose-then-verify pattern --- but the *proposer* is an analysis, not an LLM [@kh23; @kh25].
 
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
@@ -408,7 +388,7 @@ If all preconditions hold, the refactoring is *guaranteed* safe.
 - 326 / 766 candidate functions (**42.56%**) refactorable.
 - **2.16x** average speedup on performance tests.
 - Negligible accuracy loss.
-- Evaluated on 19 real DL projects (132 KLOC). [^kh25]
+- Evaluated on 19 real DL projects (132 KLOC) [@kh25].
 
 :::
 ::::::::::::::
@@ -447,14 +427,12 @@ For each of the following compiler tasks, is an LLM "compiler-grade" trustworthy
 
 ## A Working Mental Model
 
-```
-+----------------------------------------+
-|  LLM           --proposes-->  Verifier |
-|                                        |
-|  good prior            sound check     |
-|  fast but unsound      slow but sound  |
-+----------------------------------------+
-```
+|                | **LLM (Proposer)**       | **Verifier**          |
+|----------------|--------------------------|-----------------------|
+| What it gives  | A good prior over outputs| A sound check         |
+| Speed          | Fast                     | Slow                  |
+| Soundness      | Unsound                  | Sound                 |
+| Solves         | Search                   | Correctness           |
 
 - LLMs solve the **search problem**.
 - Compiler theory solves the **soundness problem**.
@@ -500,6 +478,11 @@ The Dragon Book does not cover this material. Use these instead.
 
 - Liu et al. *Empirical Study on the Code Refactoring Capability of LLMs.* 2024. [arxiv.org/abs/2411.02320](https://arxiv.org/abs/2411.02320)
 - *Software Refactoring Research with LLMs: A Systematic Literature Review.* JSS 2025.
+
+## References
+
+::: {#refs}
+:::
 
 ## Thank You
 
