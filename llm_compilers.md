@@ -53,7 +53,7 @@ LLMs and compilers can interact in two opposite directions.
 
 **Optimization:**
 
-- Phase / pass ordering.
+- Phase/pass ordering.
 - Autotuning.
 - IR-to-IR rewriting.
 
@@ -90,7 +90,7 @@ Machine learning in compilers is *not* new.
 - 2000s: ML-based inlining and unrolling heuristics.
 - **MILEPOST GCC** (2008): replace hand-tuned heuristics with learned ones.
 - **CompilerGym** (Facebook, 2021): RL environment for compiler optimization [@cgym].
-- **AutoTVM / Ansor**: ML-driven autotuning of DL kernels.
+- **AutoTVM/Ansor**: ML-driven autotuning of DL kernels.
 
 > LLMs are the next chapter, not the first one.
 
@@ -99,7 +99,7 @@ Machine learning in compilers is *not* new.
 Six places along the pipeline where LLMs are being applied [@survey]:
 
 1. **Source-level rewriting** (idiomatic, vectorizable, parallelizable).
-1. **Pass / phase ordering** (which optimizations, in what order).
+1. **Pass/phase ordering** (which optimizations, in what order).
 1. **IR-level transformation** (LLVM IR $\to$ better LLVM IR).
 1. **Code generation** (LLVM IR $\to$ assembly).
 1. **Autotuning** (search the schedule space).
@@ -125,7 +125,7 @@ double sum = std::inner_product(a, a+n, b, 0.0);
 
 > Q: What is the verification problem here?
 
-## (2) Pass / Phase Ordering
+## (2) Pass/Phase Ordering
 
 A classic NP-hard search:
 
@@ -197,7 +197,7 @@ The paper is careful: LLM Compiler can **emit incorrect IR**.
 - A 1-bit error in a 1000-token output is still a wrong program.
 - Naive use without verification is dangerous.
 
-The paper's recommendation: use the LLM as a *proposer*, then validate with a real compiler / equivalence checker.
+The paper's recommendation: use the LLM as a *proposer*, then validate with a real compiler/equivalence checker.
 
 > A compiler must be **correct first, fast second**. LLMs invert that.
 
@@ -207,7 +207,7 @@ Stepping back from Meta LLM Compiler [@llmc]: what it does is one instance of th
 
 ```mermaid
 graph LR
-  src["source / IR"] --> llm["LLM\n(fast, unsound)"]
+  src["source/IR"] --> llm["LLM\n(fast, unsound)"]
   llm --> cand["candidate\ntransform"]
   cand --> val{"Validator\n(sound check)"}
   val --> accept(["accept"])
@@ -294,7 +294,7 @@ Mitigations:
 
 - Re-compile the LLM output and diff against the original binary.
 - Run the original and the recovered binary on the same inputs.
-- Use the LLM only as a *renaming / commenting* layer over a classical decompiler.
+- Use the LLM only as a *renaming/commenting* layer over a classical decompiler.
 
 ## Compilers Have Bugs
 
@@ -317,7 +317,7 @@ The "weird-but-legal" + differential-test methodology *predates* LLMs by years: 
 Tying back to Part 1: DL compilers are young and brittle. Four well-documented categories:
 
 - **Silent miscompilation**: graph mode and eager mode disagree on the output. Caused by `torch.compile` graph breaks discarding side effects, or `tf.function` retracing under inputs the original trace didn't see.
-- **Numerical drift**: aggressive operator fusion reorders floating-point operations, returning different values---especially visible at `fp16` / `bf16`.
+- **Numerical drift**: aggressive operator fusion reorders floating-point operations, returning different values---especially visible at `fp16`/`bf16`.
 - **Crashes**: the tracer fails on specific Python constructs, dynamic shapes, or unsupported control flow.
 - **Retrace thrashing**: shape or dtype variations trigger expensive recompilation, sometimes invisibly---a *performance* bug that masquerades as "the model is slow."
 
@@ -395,7 +395,7 @@ Preconditions filter candidates; we then *empirically* validate the surviving re
 
 ### What It Bought Us
 
-- 326 / 766 candidate functions (**42.56%**) refactorable.
+- 326/766 candidate functions (**42.56%**) refactorable.
 - **2.16x** average speedup on performance tests.
 - Negligible accuracy loss.
 - Evaluated on 19 real DL projects (132 KLOC) [@kh25].
@@ -430,7 +430,7 @@ For each of the following compiler tasks, is an LLM "compiler-grade" trustworthy
 | Translate IR $\to$ optimized IR   |            |
 | Generate a fuzzing input          |            |
 | Decompile a malware sample        |            |
-| Replace `-O3`                     |            |
+| Replace standard compiler optimizations | |
 | Refactor eager DL code to graphs  |            |
 
 > Discuss in pairs. We'll go through the table together.
@@ -452,9 +452,9 @@ For each of the following compiler tasks, is an LLM "compiler-grade" trustworthy
 
 1. **Lexical analysis**: regex, finite automata, Lex/Flex.
 1. **Syntax analysis**: grammars, LALR(1), Yacc/Bison.
-1. **Semantic analysis & type checking**.
+1. **Semantic analysis and type checking**.
 1. **Intermediate code generation**.
-1. **Control-flow & data-flow analysis**.
+1. **Control-flow and data-flow analysis**.
 1. **Optimization**.
 1. **Today**: where this toolkit meets the modern frontier---DL compilers and LLM-augmented compilation.
 
