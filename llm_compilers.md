@@ -129,7 +129,7 @@ double sum = std::inner_product(a, a+n, b, 0.0);
 
 A classic NP-hard search:
 
-- LLVM has $\sim$70 optimization passes.
+- LLVM has **over 100** optimization passes (the count varies by version; phase-ordering papers typically work over a curated subset of ~50--130).
 - Their order matters; `-O3` is one fixed point in a huge space.
 - Best order can vary per program.
 
