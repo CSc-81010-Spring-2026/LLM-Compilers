@@ -484,6 +484,17 @@ The Dragon Book does not cover this material. Use these instead.
 ::: {#refs}
 :::
 
+## Optional Take-Home (After the Final)
+
+For anyone who wants to keep going after the final quiz:
+
+- Pick **one paper** from the References slides --- Part 1 or Part 2.
+- Read it.
+- Write a **one-page response**: what does it claim, what did you find compelling or unconvincing, where does it connect to the rest of this course?
+- Email it to me by the last day of finals week.
+
+> **Voluntary.** No grade impact either way. Quiz prep first; this is for *after*.
+
 ## Thank You
 
 > Compilers are not a solved problem. They are *the* problem at the boundary of every new computational platform --- deep learning yesterday, neural-symbolic systems tomorrow.
