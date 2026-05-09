@@ -450,12 +450,15 @@ For each of the following compiler tasks, is an LLM "compiler-grade" trustworthy
 
 ## What You Learned This Semester
 
+1. **Introduction**.
+1. **Java overview**.
 1. **Lexical analysis**: regex, finite automata, Lex/Flex.
 1. **Syntax analysis**: grammars, LALR(1), Yacc/Bison.
-1. **Semantic analysis and type checking**.
-1. **Intermediate code generation**.
-1. **Control-flow and data-flow analysis**.
-1. **Optimization**.
+1. **Type checking** (with type constraints).
+1. **Intermediate code**.
+1. **Control-flow analysis**.
+1. **Data-flow analysis**.
+1. **Compiler optimizations**.
 1. **Today**: where this toolkit meets the modern frontier---DL compilers and LLM-augmented compilation.
 
 ## Final Take-Home Points
