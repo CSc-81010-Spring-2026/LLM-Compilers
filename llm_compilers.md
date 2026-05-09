@@ -308,7 +308,7 @@ LLM-based fuzzers extend this:
 - Run on multiple compilers/framework versions.
 - Diff outputs.
 
-The same "weird-but-legal" + differential-test methodology is used to find correctness bugs in **refactoring engines** [@daniel2007] --- the same engines our research builds on. Refactoring is just compilation at the source level; the testing techniques transfer.
+The "weird-but-legal" + differential-test methodology *predates* LLMs by years: Daniel et al. used it (with random program generation, not LLMs) to find correctness bugs in **refactoring engines** in 2007 [@daniel2007] --- the same engines our research builds on. LLMs are the modern program-generator slot in an older testing pattern. Applying LLMs to *refactoring-engine* testing specifically is a natural open direction.
 
 > LLMs are *especially good* at generating syntactically tricky-but-valid programs.
 
