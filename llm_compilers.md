@@ -314,11 +314,14 @@ The "weird-but-legal" + differential-test methodology *predates* LLMs by years: 
 
 ## DL Compilers Have More Bugs
 
-Tying back to Part 1: DL compilers are young and brittle.
+Tying back to Part 1: DL compilers are young and brittle. Four well-documented categories:
 
-- Many bugs in `tf.function`, `torch.compile`, JAX `jit`.
-- Symptoms: silent wrong answers, recompiles, crashes, NaNs.
-- LLM-based testing has found hundreds of such bugs in DL frameworks recently [@dlfuzz].
+- **Silent miscompilation**: graph mode and eager mode disagree on the output. Caused by `torch.compile` graph breaks discarding side effects, or `tf.function` retracing under inputs the original trace didn't see.
+- **Numerical drift**: aggressive operator fusion reorders floating-point operations, returning different values --- especially visible at `fp16` / `bf16`.
+- **Crashes**: the tracer fails on specific Python constructs, dynamic shapes, or unsupported control flow.
+- **Retrace thrashing**: shape or dtype variations trigger expensive recompilation, sometimes invisibly --- a *performance* bug that masquerades as "the model is slow."
+
+LLM-based fuzzing has recently surfaced hundreds of such bugs in DL frameworks [@dlfuzz].
 
 > Q: How does this connect to *concept drift* and *technical debt* in ML systems?
 
