@@ -353,12 +353,13 @@ Approaches under active research:
 
 ## Connection to This Course's Toolkit
 
-Everything you have learned this semester is *exactly* what you need to verify LLM output.
+The course toolkit gives you most of what you need to verify LLM output:
 
 - Lexing/parsing $\to$ check the LLM produced syntactically valid IR.
 - Type checking $\to$ check it preserves types.
 - Dataflow analysis $\to$ check it preserves variable definitions and uses.
-- Equivalence checking $\to$ check it preserves *semantics*.
+
+The missing piece---and the heart of the **verification gap**---is *equivalence checking*: proving an LLM's transformed output computes the same function as its input. We didn't cover formal equivalence checking this semester, but the foundations above are exactly what you build on top of.
 
 > The verifier is what makes the LLM safe to use. **Compilers people are exactly the right people to build it.**
 
