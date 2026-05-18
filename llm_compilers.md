@@ -71,12 +71,15 @@ Today we focus on the right-hand side---LLMs *as compiler components*.
 
 We did not cover LLVM directly, but it fits the picture you already have.
 
-- **LLVM** is a *classical* compiler infrastructure (the engine behind `clang`, `rustc`, Swift, ...). It plays the role of the **low-level IR + backend** in the DL-compiler stack we drew in Part 1.
-- **LLVM IR** is a **typed, SSA-form** intermediate representation---the same SSA property we studied for the tensor-level IR, but for general-purpose code.
+- **LLVM** is a *classical* compiler infrastructure (`clang`, `rustc`, Swift, ...). It plays the role of the **low-level IR + backend** in the DL-compiler stack from Part 1.
+- **LLVM IR** is essentially the **three-address code** you studied (`x = y op z` plus temporaries), with three additions:
+    - **Static types** on every value.
+    - **SSA form**---*single-static-assignment*: every value has exactly one defining instruction. Not covered this semester; briefly noted in Part 1's "SSA, Tensor Edition" slide.
+    - **Explicit basic blocks + CFG**---the control-flow graphs from the CFA lecture, made first-class structure *inside* the IR (instead of flat label-and-jump TAC).
 - **MLIR is built on LLVM principles** and lowers *into* LLVM IR: the chain `tosa` $\to$ `linalg` $\to$ `scf+vector` $\to$ `llvm` from Part 1 ends at LLVM IR before assembly.
 - LLM-in-compiler research targets LLVM IR because it is standardized, has huge corpora, and `clang -O3` is cheap ground truth.
 
-> Mental model: LLVM IR = the *low-level IR* box from Part 1, but for general-purpose code instead of tensors.
+> Mental model: LLVM IR = your three-address code + types + SSA + an explicit CFG.
 
 ## Why Even Try?
 
@@ -334,7 +337,7 @@ Tying back to Part 1: DL compilers are young and brittle. Four well-documented c
 
 LLM-based fuzzing has recently surfaced hundreds of such bugs in DL frameworks [@dlfuzz].
 
-> Q: How does this connect to *concept drift* and *technical debt* in ML systems?
+> Q: Where in the DL-compiler stack from Part 1 are these bugs landing---the frontend tracer, the lowering passes, or the kernel codegen?
 
 ## What LLMs Cannot Do
 
