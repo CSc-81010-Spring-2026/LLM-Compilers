@@ -77,6 +77,7 @@ We did not cover LLVM directly, but it fits the picture you already have.
     - **SSA form**---*single-static-assignment*: every value has exactly one defining instruction. Not covered this semester; briefly noted in Part 1's "SSA, Tensor Edition" slide.
     - **Explicit basic blocks + CFG**---the control-flow graphs from the CFA lecture, made first-class structure *inside* the IR (instead of flat label-and-jump TAC).
 - **MLIR is built on LLVM principles** and lowers *into* LLVM IR: the chain `tosa` $\to$ `linalg` $\to$ `scf+vector` $\to$ `llvm` from Part 1 ends at LLVM IR before assembly.
+- **Compiler flags `-O0`--`-O3`** (not covered this semester): `clang`/`gcc` *optimization-level presets*. `-O0` runs no optimization passes; `-O3` runs the full standard pipeline. The deck uses `-O3` below as shorthand for "what a good classical compiler produces."
 - LLM-in-compiler research targets LLVM IR because it is standardized, has huge corpora, and `clang -O3` is cheap ground truth.
 
 > Mental model: LLVM IR = your three-address code + types + SSA + an explicit CFG.
