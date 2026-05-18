@@ -471,7 +471,7 @@ For each of the following compiler tasks, is an LLM "compiler-grade" trustworthy
 1. The hard problem is the **verification gap**---and it is *exactly* the kind of problem this course prepared you for.
 1. The frontier of compilers is being defined right now. **You are equipped to contribute.**
 
-## Suggested Reading
+## Reading
 
 The Dragon Book does not cover this material. Use these instead.
 
