@@ -257,7 +257,7 @@ The paper's recommendation: use the LLM as a *proposer*, then validate with a re
 
 Stepping back from Meta LLM Compiler [@llmc]: what it does is one instance of the dominant safe pattern across LLM-for-compiler papers more generally:
 
-```mermaid
+```{.mermaid .medium}
 graph LR
   src["source/IR"] --> llm["LLM\n(fast, unsound)"]
   llm --> cand["candidate\ntransform"]
