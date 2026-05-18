@@ -67,6 +67,17 @@ LLMs and compilers can interact in two opposite directions.
 
 Today we focus on the right-hand side---LLMs *as compiler components*.
 
+## Background: LLVM and LLVM IR
+
+We did not cover LLVM directly, but it fits the picture you already have.
+
+- **LLVM** is a *classical* compiler infrastructure (the engine behind `clang`, `rustc`, Swift, ...). It plays the role of the **low-level IR + backend** in the DL-compiler stack we drew in Part 1.
+- **LLVM IR** is a **typed, SSA-form** intermediate representation---the same SSA property we studied for the tensor-level IR, but for general-purpose code.
+- **MLIR is built on LLVM principles** and lowers *into* LLVM IR: the chain `tosa $\to$ linalg $\to$ scf+vector $\to$ llvm` from Part 1 ends at LLVM IR before assembly.
+- LLM-in-compiler research targets LLVM IR because it is standardized, has huge corpora, and `clang -O3` is cheap ground truth.
+
+> Mental model: LLVM IR = the *low-level IR* box from Part 1, but for general-purpose code instead of tensors.
+
 ## Why Even Try?
 
 Classical compiler optimizations rely on:

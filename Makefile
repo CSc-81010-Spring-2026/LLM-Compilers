@@ -1,5 +1,5 @@
 FILE=llm_compilers
-PANDOC_CMD=pandoc --shift-heading-level-by=-1 -t slidy -s -H header.html --citeproc --bibliography=refs.bib $(FILE).md -o $(FILE).html
+PANDOC_CMD=pandoc --shift-heading-level-by=-1 -t slidy -s -H header.html --citeproc -M link-citations=true --bibliography=refs.bib $(FILE).md -o $(FILE).html
 
 all:
 	$(PANDOC_CMD)
