@@ -112,7 +112,7 @@ Machine learning in compilers is *not* new.
 
 Six places along the classical compiler pipeline where LLMs are being applied [@survey]:
 
-```mermaid
+```{.mermaid .large}
 flowchart LR
   src(["Source code"]) --> fe[Frontend] --> ir[("IR")] --> passes[Opt. passes] --> cg[Code gen] --> asm(["Assembly"])
 
