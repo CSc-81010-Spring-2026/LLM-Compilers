@@ -487,7 +487,7 @@ The Dragon Book does not cover this material. Use these instead.
 - Yang et al. *Finding and Understanding Bugs in C Compilers (Csmith).* PLDI 2011.
 - Deng et al. *LLMs are Edge-Case Generators (DL framework fuzzing).* ICSE 2024.
 
-### LLMs in Refactoring (Related Field, Optional)
+## Reading: LLMs in Refactoring (Related Field, Optional)
 
 - Liu et al. *Empirical Study on the Code Refactoring Capability of LLMs.* 2024. [arxiv.org/abs/2411.02320](https://arxiv.org/abs/2411.02320)
 - *Software Refactoring Research with LLMs: A Systematic Literature Review.* JSS 2025.
