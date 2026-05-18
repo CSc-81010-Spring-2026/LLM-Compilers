@@ -108,9 +108,27 @@ Machine learning in compilers is *not* new.
 
 > LLMs are the next chapter, not the first one.
 
-## Where LLMs Plug In: A Survey
+## Where LLMs Plug In: A Pipeline View
 
-Six places along the pipeline where LLMs are being applied [@survey]:
+Six places along the classical compiler pipeline where LLMs are being applied [@survey]:
+
+```mermaid
+flowchart LR
+  src(["Source code"]) --> fe[Frontend] --> ir[("IR")] --> passes[Opt. passes] --> cg[Code gen] --> asm(["Assembly"])
+
+  L1["(1)<br/>source<br/>rewriting"]:::llm -.-> src
+  L3["(3)<br/>IR → IR"]:::llm -.-> ir
+  L2["(2)<br/>phase<br/>ordering"]:::llm -.-> passes
+  L5["(5)<br/>autotuning"]:::llm -.-> passes
+  L4["(4)<br/>IR → asm"]:::llm -.-> cg
+  asm -.-> L6["(6)<br/>decompilation"]:::llm
+
+  classDef llm fill:#ffe6cc,stroke:#d79b00,stroke-width:2px
+```
+
+## Where LLMs Plug In: The Six Categories
+
+Same six places, with more detail [@survey]:
 
 1. **Source-level rewriting** (idiomatic, vectorizable, parallelizable).
 1. **Pass/phase ordering** (which optimizations, in what order).
@@ -174,6 +192,25 @@ Meta released **LLM Compiler** in mid-2024 [@llmc]:
 - 7B and 13B parameter sizes, openly available on Hugging Face.
 - Specifically pretrained on **546 billion tokens** of LLVM IR + assembly.
 - Then instruction-tuned for compiler tasks.
+
+## Meta's LLM Compiler: How It Was Built
+
+```mermaid
+flowchart TB
+  base["Code Llama<br/>(7B or 13B)"]:::base
+  pre["Pretrain<br/>546B tokens of<br/>LLVM IR + assembly"]:::stage
+  instr["Instruction-tune<br/>for compiler tasks"]:::stage
+  opt["Optimization variant<br/>LLVM IR → optimized LLVM IR<br/>+ predicted size reduction"]:::variant
+  dis["Disassembly variant<br/>x86_64 / ARM asm → LLVM IR"]:::variant
+
+  base --> pre --> instr
+  instr --> opt
+  instr --> dis
+
+  classDef base fill:#e6f3ff,stroke:#0066cc,stroke-width:2px
+  classDef stage fill:#fff2cc,stroke:#d6b656
+  classDef variant fill:#d5e8d4,stroke:#82b366
+```
 
 ## What It Does
 
