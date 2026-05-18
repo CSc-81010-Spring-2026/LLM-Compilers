@@ -73,7 +73,7 @@ We did not cover LLVM directly, but it fits the picture you already have.
 
 - **LLVM** is a *classical* compiler infrastructure (the engine behind `clang`, `rustc`, Swift, ...). It plays the role of the **low-level IR + backend** in the DL-compiler stack we drew in Part 1.
 - **LLVM IR** is a **typed, SSA-form** intermediate representation---the same SSA property we studied for the tensor-level IR, but for general-purpose code.
-- **MLIR is built on LLVM principles** and lowers *into* LLVM IR: the chain `tosa $\to$ linalg $\to$ scf+vector $\to$ llvm` from Part 1 ends at LLVM IR before assembly.
+- **MLIR is built on LLVM principles** and lowers *into* LLVM IR: the chain `tosa` $\to$ `linalg` $\to$ `scf+vector` $\to$ `llvm` from Part 1 ends at LLVM IR before assembly.
 - LLM-in-compiler research targets LLVM IR because it is standardized, has huge corpora, and `clang -O3` is cheap ground truth.
 
 > Mental model: LLVM IR = the *low-level IR* box from Part 1, but for general-purpose code instead of tensors.
@@ -336,16 +336,21 @@ LLM-based fuzzing has recently surfaced hundreds of such bugs in DL frameworks [
 
 > Q: How does this connect to *concept drift* and *technical debt* in ML systems?
 
-## What LLMs Cannot Do (Yet)
+## What LLMs Cannot Do
 
-- **Prove** semantic equivalence.
-- **Guarantee** termination.
-- **Reason** about resource bounds (memory, time, FLOPs).
-- **Handle** truly novel architectures (training data didn't see them).
+Some limits are **fundamental** (no system can do these in general):
+
+- **Prove** semantic equivalence---Rice's theorem.
+- **Guarantee** termination---the Halting Problem.
+- **Reason** about resource bounds (memory, time, FLOPs)---reduces to halting.
+
+Other limits are **engineering** (training data and scale could improve them):
+
+- **Handle** truly novel architectures (out of distribution).
 
 A compiler that misoptimizes 1 in 1000 programs is **broken**. A code assistant that misanswers 1 in 1000 questions is *good*.
 
-> The bar for *compilers* is higher than the bar for *assistants*.
+> The bar for *compilers* is higher than for *assistants*. And the undecidable bar can never be cleared---which is why classical compilers use *sound approximations*, not "the right answer."
 
 ## Verification Gap
 
