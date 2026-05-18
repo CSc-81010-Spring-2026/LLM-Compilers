@@ -545,8 +545,8 @@ The Dragon Book does not cover this material. Use these instead.
 
 ### LLMs in Refactoring (Related Field, Optional)
 
-- Liu et al. *Empirical Study on the Code Refactoring Capability of LLMs.* 2024. [arxiv.org/abs/2411.02320](https://arxiv.org/abs/2411.02320)
-- *Software Refactoring Research with LLMs: A Systematic Literature Review.* JSS 2025.
+- Cordeiro, Noei, and Zou. *An Empirical Study on the Code Refactoring Capability of Large Language Models.* ACM TOSEM 2025. [doi.org/10.1145/3801158](https://doi.org/10.1145/3801158)
+- Martinez, Xu, Elnaggar, and AlOmar. *Software Refactoring Research with LLMs: A Systematic Literature Review.* JSS 2025, vol. 235, art. 112762. [doi.org/10.1016/j.jss.2025.112762](https://doi.org/10.1016/j.jss.2025.112762)
 
 ## References
 
