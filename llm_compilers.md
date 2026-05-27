@@ -26,7 +26,7 @@ Two themes today:
 
 For students who haven't seen Foundation Models yet:
 
-- A **Large Language Model** (LLM) is a transformer trained on massive text corpora.
+- A **Large Language Model** (LLM) is a **transformer** (a neural architecture built around *self-attention*: each token's representation is a weighted combination of every other token's) trained on massive text corpora.
 - It maps a sequence of tokens to a probability distribution over the *next* token.
 - **Code LLMs** are trained (or fine-tuned) on source code: Codex, Code Llama, StarCoder, DeepSeek-Coder, Qwen-Coder.
 - LLMs *generate* by sampling. They do not *prove*.
@@ -334,6 +334,8 @@ LLM4Decompile [@llm4d] is the leading open-source LLM decompiler.
 
 ## Hallucination Failure Mode
 
+A **hallucination** is LLM output that is fluent and confident but unsupported by the input---facts, names, or code that *look* right but aren't grounded in what the model was given.
+
 Decompiler hallucinations are sneaky:
 
 - The output *looks* plausible.
@@ -369,7 +371,7 @@ The "weird-but-legal" + differential-test methodology *predates* LLMs by years: 
 Tying back to Part 1: DL compilers are young and brittle. Four well-documented categories:
 
 - **Silent miscompilation**: graph mode and eager mode disagree on the output. Caused by `torch.compile` graph breaks discarding side effects, or `tf.function` retracing under inputs the original trace didn't see.
-- **Numerical drift**: aggressive operator fusion reorders floating-point operations, returning different values---especially visible at `fp16`/`bf16`.
+- **Numerical drift**: aggressive operator fusion reorders floating-point operations, returning different values---especially visible at `fp16` (IEEE half-precision, narrow range) and `bf16` (**brain float 16**: same exponent range as `fp32` but only 7 mantissa bits, the format favored on TPUs and modern accelerators).
 - **Crashes**: the tracer fails on specific Python constructs, dynamic shapes, or unsupported control flow.
 - **Retrace thrashing**: shape or dtype variations trigger expensive recompilation, sometimes invisibly---a *performance* bug that masquerades as "the model is slow."
 
@@ -381,7 +383,7 @@ LLM-based fuzzing has recently surfaced hundreds of such bugs in DL frameworks [
 
 Some limits are **fundamental** (no system can do these in general):
 
-- **Prove** semantic equivalence---Rice's theorem.
+- **Prove** semantic equivalence---**Rice's theorem** (any non-trivial *semantic* property of programs is undecidable in general).
 - **Guarantee** termination---the Halting Problem.
 - **Reason** about resource bounds (memory, time, FLOPs)---reduces to halting.
 
