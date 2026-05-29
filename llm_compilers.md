@@ -116,6 +116,8 @@ Six places along the classical compiler pipeline where LLMs are being applied [@
 
 ```{.mermaid .large}
 flowchart LR
+  accTitle: Where LLMs fit in the compiler pipeline
+  accDescr: A standard compiler pipeline (source code, frontend, intermediate representation, optimization passes, code generation, assembly) annotated with six points where large language models are applied: (1) source rewriting, (2) phase ordering and (5) autotuning at the optimization passes, (3) IR-to-IR transformation, (4) IR-to-assembly code generation, and (6) decompilation from assembly.
   src(["Source code"]) --> fe[Frontend] --> ir[("IR")] --> passes[Opt. passes] --> cg[Code gen] --> asm(["Assembly"])
 
   L1["(1)<br/>source<br/>rewriting"]:::llm -.-> src
@@ -199,6 +201,8 @@ Meta released **LLM Compiler** in mid-2024 [@llmc]:
 
 ```mermaid
 flowchart TB
+  accTitle: Training Meta's LLM Compiler
+  accDescr: Meta's LLM Compiler is built from Code Llama (7B or 13B), pretrained on 546 billion tokens of LLVM IR and assembly, then instruction-tuned for compiler tasks into two variants: an optimization variant mapping LLVM IR to optimized LLVM IR with a predicted size reduction, and a disassembly variant mapping x86-64 or ARM assembly to LLVM IR.
   base["Code Llama<br/>(7B or 13B)"]:::base
   pre["Pretrain<br/>546B tokens of<br/>LLVM IR + assembly"]:::stage
   instr["Instruction-tune<br/>for compiler tasks"]:::stage
@@ -260,6 +264,8 @@ Stepping back from Meta LLM Compiler [@llmc]: what it does is one instance of th
 
 ```{.mermaid .medium}
 graph LR
+  accTitle: LLM proposes, validator checks
+  accDescr: A pattern that pairs an LLM with a sound validator: source or IR is given to a fast but unsound LLM, which proposes a candidate transformation; a sound validator then checks the candidate and either accepts or rejects it.
   src["source/IR"] --> llm["LLM\n(fast, unsound)"]
   llm --> cand["candidate\ntransform"]
   cand --> val{"Validator\n(sound check)"}
