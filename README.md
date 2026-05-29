@@ -17,11 +17,7 @@ make                  # build llm_compilers.html
 make self-contained   # single-file HTML (for distribution)
 ```
 
-Equivalently, without `make`:
-
-```bash
-pandoc --shift-heading-level-by=-1 -t slidy -s -H header.html --citeproc -M link-citations=true --bibliography=refs.bib llm_compilers.md -o llm_compilers.html
-```
+See the `Makefile` for the exact Pandoc invocation and the other targets.
 
 Source files:
 
